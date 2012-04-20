@@ -2,7 +2,7 @@
 #define _GETRLIMIT_H_
 
 #include <stdlib.h>
-#include <sys/resources.h>
+#include <sys/resource.h>
 
 _PROTOTYPE( int getrlimit, (int resource, struct rlimit *rlim) );
 
