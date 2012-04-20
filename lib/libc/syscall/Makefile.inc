@@ -55,6 +55,7 @@ SRCS+=  \
 	getppid.S \
 	getpprocnr.S \
 	getprocnr.S \
+	getrlimit.S \
 	getsigset.S \
 	getsysinfo.S \
 	getuid.S \
@@ -72,6 +73,7 @@ SRCS+=  \
 	mknod.S \
 	mmap.S \
 	munmap.S \
+	setrlimit.S \
 	vm_getphys.S \
 	vm_getrefcount.S \
 	vm_memctl.S \

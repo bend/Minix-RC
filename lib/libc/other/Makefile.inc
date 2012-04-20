@@ -19,6 +19,8 @@ SRCS+=  \
 	_getnprocnr.c \
 	_getpprocnr.c \
 	_getprocnr.c \
+	_getrlimit.c \
+	_setrlimit.c \
 	_getsigset.c \
 	_getsysinfo.c \
 	_lseek64.c \
