@@ -4,7 +4,7 @@ INCS=	alloca.h ansi.h a.out.h ar.h assert.h configfile.h ctype.h \
 	curses.h dirent.h env.h err.h errno.h fcntl.h fenv.h \
 	float.h fnmatch.h fts.h getopt.h getrlimit.h setrlimit.h glob.h grp.h ifaddrs.h \
 	inttypes.h libgen.h lib.h libutil.h limits.h locale.h \
-	mathconst.h math.h midiparser.h netdb.h pwd.h regex.h \
+	mathconst.h math.h midiparser.h netdb.h printpid.h pwd.h regex.h \
 	regexp.h setjmp.h sgtty.h signal.h stdarg.h stddef.h \
 	stdint.h stdbool.h stdio.h stdlib.h string.h strings.h sysexits.h \
 	syslog.h tar.h termcap.h termios.h time.h timers.h tools.h \

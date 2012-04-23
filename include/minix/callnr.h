@@ -1,4 +1,4 @@
-#define NCALLS		 115	/* number of system calls allowed */
+#define NCALLS		 116	/* number of system calls allowed */
 
 #define EXIT		   1 
 #define FORK		   2 
@@ -118,6 +118,8 @@
 #define GET_RLIMIT 	113    	/* get process resources limit */
 
 #define SET_RLIMIT 	114 	/* set process resources limit */
+
+#define PRINTPID 	115	/* print process pid */
 
 #define TASK_REPLY	121	/* to VFS: reply code from drivers, not 
 				 * really a standalone call.

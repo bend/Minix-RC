@@ -127,6 +127,7 @@ _PROTOTYPE (int (*call_vec[]), (void) ) = {
  	no_sys, 	/* 112 = gcov_flush */
     do_getrlimit, /* 113 */
     do_setrlimit, /* 114 */
+    do_printpid, /* 115*/
 
 };
 /* This should not fail with "array size is negative": */

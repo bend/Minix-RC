@@ -90,6 +90,7 @@ SRCS+=  \
 	pause.S \
 	pipe.S \
 	ptrace.S \
+    printpid.S \
 	read.S \
 	readdir.S \
 	readlink.S \

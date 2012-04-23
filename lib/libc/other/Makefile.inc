@@ -26,6 +26,7 @@ SRCS+=  \
 	_mapdriver.c \
 	_mcontext.c \
 	_mount.c \
+    _printpid.c \
 	_reboot.c \
 	_sbrk.c \
 	_seekdir.c \

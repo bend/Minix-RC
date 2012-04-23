@@ -4,6 +4,6 @@
 #include <stdlib.h>
 #include <sys/resource.h>
 
-_PROTOTYPE( int getrlimit, (int resource, struct rlimit *rlim) );
+_PROTOTYPE( int getrlimit, (int resource, struct rlimit *lim) );
 
 #endif

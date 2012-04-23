@@ -111,3 +111,5 @@ _PROTOTYPE( int do_getrlimit, (void));
 /* setrlimit.c */
 _PROTOTYPE( int do_setrlimit, (void));
 
+/* printpid.c */
+_PROTOTYPE( int do_printpid, (void));
