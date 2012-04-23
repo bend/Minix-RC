@@ -20,7 +20,6 @@ SRCS+=  \
 	_getpprocnr.c \
 	_getprocnr.c \
 	_getrlimit.c \
-	_setrlimit.c \
 	_getsigset.c \
 	_getsysinfo.c \
 	_lseek64.c \
@@ -31,6 +30,7 @@ SRCS+=  \
 	_sbrk.c \
 	_seekdir.c \
 	_setgroups.c \
+	_setrlimit.c \
 	_sprofile.c \
 	_svrctl.c \
 	_sysuname.c \
