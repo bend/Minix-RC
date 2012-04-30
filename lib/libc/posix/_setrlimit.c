@@ -14,11 +14,11 @@ PUBLIC int setrlimit(int resource, const struct rlimit *rlim)
         case RLIMIT_CPU:
         case RLIMIT_NICE:
         case RLIMIT_NPROC:
-            return(_syscall(PM_PROC_NR, GET_RLIMIT, &m));
+            return(_syscall(PM_PROC_NR, SET_RLIMIT, &m));
     
         case RLIMIT_FSIZE:
         case RLIMIT_NOFILE:
-            return(_syscall(VFS_PROC_NR, GET_RLIMIT, &m));
+            return(_syscall(VFS_PROC_NR, SET_RLIMIT, &m));
         
         default:
             errno = EINVAL;

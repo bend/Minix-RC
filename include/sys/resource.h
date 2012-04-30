@@ -15,8 +15,6 @@
 int getpriority(int, int);
 int setpriority(int, int, int);
 
-#ifdef _POSIX_SOURCE
-
 #include <sys/time.h>
 
 typedef unsigned long rlim_t;
@@ -47,6 +45,5 @@ int getrlimit(int resource, struct rlimit *rlp);
 int setrlimit(int resource, const struct rlimit *rlp);
 
 
-#endif /* defined(_POSIX_SOURCE) */
 
 #endif

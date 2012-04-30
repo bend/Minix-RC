@@ -15,8 +15,23 @@ PUBLIC int do_getrlimit()
 
     rmp = mp;
     
-    /* Test if rlim is not null */
-    if((struct rlimit*) m_in.rlimit_struct == (struct rlimit*) NULL) return(EFAULT);
+    resource = m_in.rlimit_resource; 
+    printf("ienter do_getrlimit\n");
+        
+    /* Copy rlim structure to PM */
+    if((struct rlimit*) m_in.rlimit_struct == (struct rlimit*) NULL)
+    {
+        printf("error\n");
+        return(EFAULT);    
+    }
+    else
+    {                                                                         
+        src = (vir_bytes) m_in.rlimit_struct;                                      
+        dst = (vir_bytes) &rlim;
+        if((s=sys_datacopy(who_e, src, SELF, dst,                             
+            (phys_bytes) sizeof(struct rlimit))) != OK) return(s);            
+        printf("In else clause\n");
+    }   
 
     
     rlim.rlim_cur=100;
@@ -28,6 +43,7 @@ PUBLIC int do_getrlimit()
     dst = (vir_bytes) m_in.rlimit_struct;
     if((s=sys_datacopy(SELF, src, who_e, dst,
                     (phys_bytes) sizeof(struct rlimit))) != OK) return(s);
+    printf("after datacopy\n");
 
     return(OK);
 
