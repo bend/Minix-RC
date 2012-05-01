@@ -15,7 +15,6 @@
 int getpriority(int, int);
 int setpriority(int, int, int);
 
-#ifdef _POSIX_SOURCE
 
 #include <sys/time.h>
 
@@ -38,10 +37,13 @@ struct rlimit
 #define RLIMIT_NOFILE	5
 #define RLIMIT_STACK	6
 #define RLIMIT_AS	7
+#define RLIMIT_NICE     8
+#define RLIMIT_NPROC    9
 
 #define RLIM_NLIMITS 8
+
 int getrlimit(int resource, struct rlimit *rlp);
 
-#endif /* defined(_POSIX_SOURCE) */
+int setrlimit(int resource, const struct rlimit *rlp);
 
 #endif

@@ -4,6 +4,6 @@
 
 PUBLIC int do_getrlimit()
 {
-    printf("getrlimit sys call");
+    printf("do_getrlimit sys call");
     return OK;
 }
