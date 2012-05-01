@@ -8,9 +8,10 @@ PUBLIC int getrlimit(int resource, struct rlimit *rlim)
     message m;
 
     m.m2_i1 = resource;
-    m.m2_p1 = rlim;
+    m.m2_p1 = (char*)rlim;
 
     printf("in getrlimit\n");
+    printf("rlim val %d\n", ((struct rlimit*)m.m2_p1)->rlim_cur);
 
     switch(resource)
     {
