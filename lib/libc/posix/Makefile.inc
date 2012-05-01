@@ -42,6 +42,7 @@ SRCS+= 	 \
 	_getpgrp.c \
 	_getpid.c \
 	_getppid.c \
+    _getrlimit.c \
 	_getuid.c \
 	_ioctl.c \
 	_isatty.c \
@@ -70,6 +71,7 @@ SRCS+= 	 \
 	_select.c \
 	_setgid.c \
 	_setitimer.c \
+    _setrlimit.c \
 	_setsid.c \
 	_setuid.c \
 	_sigaction.c \
