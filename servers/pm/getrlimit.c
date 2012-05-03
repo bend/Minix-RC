@@ -40,7 +40,6 @@ PUBLIC int do_getrlimit()
             break;
         case RLIMIT_NPROC:
             break;
-/*            tmp = nplist_getpnode(rmp->mp_realuid); */
     }
 
 

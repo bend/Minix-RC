@@ -1,6 +1,10 @@
 #include <minix/com.h>
 #include <minix/callnr.h>
 #include <minix/resource.h>
+#include <sys/resource.h>
+#include "pm.h"
+#include "mproc.h"
+#include "param.h"
 
 
 PUBLIC int do_setrlimit()
@@ -52,18 +56,6 @@ PUBLIC int do_setrlimit()
             break;
 
         case RLIMIT_NPROC:
-/*
-            tmp = nplist_getpnode(rmp->mp_realuid);
-            if(tmp == NIL_PNODE) {
-                nplist_add(rmp->mp_realuid, 1);
-                tmp = nplist_getpnode(rmp->mp_realuid);
-            }
-            if(rmp->mp_effuid != SUPER_USER && tmp->nproclim.rlim_max != RLIM_INFINITY) {
-                    if(rlim.rlim_max > tmp->nproclim.rlim_max || rlim.rlim_max == RLIM_INFINITY)
-                        return(EPERM);
-            }
-            tmp->nproclim = rlim;
-*/
             break;
     }
 
