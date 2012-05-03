@@ -435,8 +435,10 @@ PUBLIC int do_getsetpriority()
 		return(rmp->mp_nice - PRIO_MIN);
 	}
 
-	/* Only root is allowed to reduce the nice level. */
-	if (rmp->mp_nice > arg_pri && mp->mp_effuid != SUPER_USER)
+	/* Only root is allowed to reduce the nice level and the priority must not be smaller than rlim_cur */
+	if ((rmp->mp_nice > arg_pri && mp->mp_effuid != SUPER_USER)
+        || (rmp->mp_nicelim.rlim_cur != RLIM_INFINITY && (20 - rmp->mp_nicelim.rlim_cur) > arg_pri))
+
 		return(EACCES);
 	
 	/* We're SET, and it's allowed.

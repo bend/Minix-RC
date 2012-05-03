@@ -269,6 +269,7 @@ PRIVATE int sef_cb_init_fresh(int type, sef_init_info_t *info)
 			/* RS schedules this process */
 			rmp->mp_scheduler = NONE;
 			rmp->mp_nice = get_nice_value(SRV_Q);
+            rmp->mp_nicelim.rlim_cur = RLIM_NICE_DEFAULT;
 		}
 
 		/* Get kernel endpoint identifier. */

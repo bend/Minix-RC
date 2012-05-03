@@ -12,7 +12,6 @@ PUBLIC int getrlimit(int resource, struct rlimit *rlim)
 
     switch(resource)
     {
-        case RLIMIT_CORE:
         case RLIMIT_CPU:
         case RLIMIT_NICE:
         case RLIMIT_NPROC:

@@ -30,9 +30,18 @@ PUBLIC int do_getrlimit()
             (phys_bytes) sizeof(struct rlimit))) != OK) return(s);  
     }   
 
-    
-    rlim.rlim_cur=100;
-    rlim.rlim_max=200;
+
+    switch(resource)
+    {   
+        case RLIMIT_CPU:
+            break;
+        case RLIMIT_NICE:
+            rlim = rmp->mp_nicelim;
+            break;
+        case RLIMIT_NPROC:
+            break;
+/*            tmp = nplist_getpnode(rmp->mp_realuid); */
+    }
 
 
 

@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <timers.h>
 #include <signal.h>
+#include <sys/resource.h>
 
 /* Needs to be included here, for 'ps' etc */
 #include "const.h"
@@ -55,7 +56,8 @@ EXTERN struct mproc {
 
   /* Scheduling priority. */
   signed int mp_nice;		/* nice is PRIO_MIN..PRIO_MAX, standard 0. */
-
+  struct rlimit mp_nicelim; /* nice limit */
+    
   /* User space scheduling */
   endpoint_t mp_scheduler;	/* scheduler endpoint id */
 
