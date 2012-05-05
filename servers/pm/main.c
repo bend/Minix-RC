@@ -255,6 +255,7 @@ PRIVATE int sef_cb_init_fresh(int type, sef_init_info_t *info)
 			/* Set scheduling info */
 			rmp->mp_scheduler = KERNEL;
 			rmp->mp_nice = get_nice_value(USR_Q);
+            rmp->mp_nicelim.rlim_cur = RLIM_NICE_DEFAULT;
 		}
 		else {					/* system process */
   			if(ip->proc_nr == RS_PROC_NR) {

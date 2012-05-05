@@ -37,6 +37,8 @@ PUBLIC int do_getrlimit()
             break;
         case RLIMIT_NICE:
             rlim = rmp->mp_nicelim;
+            printf("%d\n", rlim.rlim_cur);
+            printf("%d\n", rlim.rlim_max);
             break;
         case RLIMIT_NPROC:
             break;

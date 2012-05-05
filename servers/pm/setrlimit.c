@@ -12,29 +12,45 @@ PUBLIC int do_setrlimit()
     int s, resource;
     vir_bytes src, dst;
     struct rlimit rlim;
-    struct pnode *tmp;
+    printf("setrlimit syscall\n");
 
     rmp = mp; 
     resource = m_in.rlimit_resource;
 
     /* Copy rlim structure to PM */
-    if((struct rlimit*) m_in.rlimit_struct == (struct rlimit*) NULL) return(EFAULT);
+    if((struct rlimit*) m_in.rlimit_struct == (struct rlimit*) NULL)
+    {
+        printf("struct null\n");
+        return(EFAULT);
+    }
     else
     {   
         src = (vir_bytes) m_in.rlimit_struct;
         dst = (vir_bytes) &rlim;
         if((s=sys_datacopy(who_e, src, SELF, dst,
-                        (phys_bytes) sizeof(struct rlimit))) != OK) return(s);
+                        (phys_bytes) sizeof(struct rlimit))) != OK) 
+        {
+            printf("sys copy failedi\n");
+            return(s);
+        }
     }   
 
     /* Check if the specified limit is valid  */
-    if(rlim.rlim_cur != RLIM_INFINITY && rlim.rlim_cur < 0) return(EINVAL);
+    if(rlim.rlim_cur != RLIM_INFINITY && rlim.rlim_cur < 0) 
+    {
+        printf("limit not valid\n");
+        return(EINVAL);
+    }
     else if(rlim.rlim_max != RLIM_INFINITY) {
+        printf("!= rlimit_inf\n");
         /* rlim.rlim_cur must be different of 
            RLIM_INFINITY because the hard limit is smaller than RLIM_INFINITY 
         */
         if(rlim.rlim_max < rlim.rlim_cur || rlim.rlim_max < 0 || rlim.rlim_cur == RLIM_INFINITY) 
+        {
+            printf("Cond error \n");
             return(EINVAL);
+        }
     }   
 
     switch(resource)
@@ -43,6 +59,8 @@ PUBLIC int do_setrlimit()
             break;
 
         case RLIMIT_NICE:
+            printf("will set value \n", rlim.rlim_cur);
+            printf("will set value \n", rlim.rlim_max);
             if(!((rlim.rlim_cur <= (PRIO_MAX - PRIO_MIN) && rlim.rlim_max <= (PRIO_MAX - PRIO_MIN))
                     || (rlim.rlim_cur == RLIM_INFINITY && rlim.rlim_max == RLIM_INFINITY))) 
                 return(EINVAL);

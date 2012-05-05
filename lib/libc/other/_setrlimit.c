@@ -8,6 +8,7 @@ PUBLIC int setrlimit(int resource, const struct rlimit *rlim)
 
     m.m2_i1 = resource;
     m.m2_p1 = (char*)rlim;
+    printf("setrlimit libc call\n");
 
     switch(resource)
     {
