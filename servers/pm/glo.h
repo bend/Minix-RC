@@ -1,4 +1,8 @@
 /* EXTERN should be extern except in table.c */
+#ifdef _TABLE
+#undef EXTERN
+#define EXTERN
+#endif
 
 /* Global variables. */
 EXTERN struct mproc *mp;	/* ptr to 'mproc' slot of current process */
@@ -22,5 +26,3 @@ EXTERN sigset_t noign_sset;	/* which signals cannot be ignored */
 EXTERN u32_t system_hz;		/* System clock frequency. */
 EXTERN int abort_flag;
 EXTERN char monitor_code[256];		
-EXTERN struct unode *un;    /* ptr to 'unode' slot of current uid */
-EXTERN struct unode *nodes;  /* ptr to head of unodes list */

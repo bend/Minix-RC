@@ -4,7 +4,6 @@
 #include "pm.h"
 #include "mproc.h"
 #include "param.h"
-#include "unode.h"
 
 
 PUBLIC int do_setrlimit()
@@ -73,11 +72,10 @@ PUBLIC int do_setrlimit()
             break;
 
         case RLIMIT_NPROC:
-            printf("Will set nproc \n");
-            un->plim = rlim;
             break;
     }
 
+    printf("setrlimit sys call 2");
 
     return(OK);
 }

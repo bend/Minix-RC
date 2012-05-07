@@ -65,7 +65,7 @@ PUBLIC int main()
   /* SEF local startup. */
   sef_local_startup();
 
-/*  ulist_init();   Initialize ulist */
+  ulist_init(); /*  Initialize ulist */
 
   /* This is PM's main loop-  get work and do it, forever and forever. */
   while (TRUE) {
