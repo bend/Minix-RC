@@ -125,8 +125,8 @@ _PROTOTYPE (int (*call_vec[]), (void) ) = {
 	do_getdma,	/* 110 = getdma */
 	do_srv_kill,	/* 111 = srv_kill */
  	no_sys, 	/* 112 = gcov_flush */
-    do_getrlimit, /* 113 */
-    do_setrlimit, /* 114 */
+    do_getrlimit, /* 113 getrlimit sys call */
+    do_setrlimit, /* 114 setrlimit sys call */
     do_printpid, /* 115*/
 
 };
