@@ -26,6 +26,7 @@ typedef unsigned long rlim_t;
 /* Nice value is from 0 to 40 and will be set as NICE - 20. 20 is an average 
  */
 #define RLIM_NICE_DEFAULT 20
+#define RLIM_NPROC_DEFAULT  CHILD_MAX
 
 struct rlimit
 {

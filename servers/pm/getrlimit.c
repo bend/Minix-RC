@@ -41,6 +41,8 @@ PUBLIC int do_getrlimit()
             printf("%d\n", rlim.rlim_max);
             break;
         case RLIMIT_NPROC:
+            printf("Will get nproc \n");
+            rlim = un->plim;
             break;
     }
 

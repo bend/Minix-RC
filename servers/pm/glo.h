@@ -8,6 +8,8 @@
 EXTERN struct mproc *mp;	/* ptr to 'mproc' slot of current process */
 EXTERN int procs_in_use;	/* how many processes are marked as IN_USE */
 EXTERN char monitor_params[128*sizeof(char *)];	/* boot monitor parameters */
+EXTERN struct unode *un;    /* ptr to 'unode' slot of current uid */
+EXTERN struct unode *nodes  /* ptr to head of unodes list */
 EXTERN struct kinfo kinfo;	/* kernel information */
 
 /* Misc.c */

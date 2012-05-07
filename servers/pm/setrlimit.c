@@ -72,10 +72,11 @@ PUBLIC int do_setrlimit()
             break;
 
         case RLIMIT_NPROC:
+            printf("Will set nproc \n");
+            un->plim = rlim;
             break;
     }
 
-    printf("setrlimit sys call 2");
 
     return(OK);
 }

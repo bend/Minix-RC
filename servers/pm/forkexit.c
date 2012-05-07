@@ -28,6 +28,7 @@
 #include <signal.h>
 #include "mproc.h"
 #include "param.h"
+#include "unode.h"
 
 #define LAST_FEW            2	/* last few slots reserved for superuser */
 
@@ -47,6 +48,7 @@ PUBLIC int do_fork()
 /* The process pointed to by 'mp' has forked.  Create a child process. */
   register struct mproc *rmp;	/* pointer to parent */
   register struct mproc *rmc;	/* pointer to child */
+  register struct unode *run;   /* pointer to current user node */
   pid_t new_pid;
   static int next_child;
   int i, n = 0, s;
@@ -63,6 +65,10 @@ PUBLIC int do_fork()
   	printf("PM: warning, process table is full!\n");
   	return(EAGAIN);
   }
+  run = un;
+  /* Check the rlimit to see if the limit is not reached */
+  if( run.nb_proc >= run->plim.rlim_cur && run->plim.rlim_cur != RLIM_INFINITY )
+      return(EAGAIN);
 
   /* Find a slot in 'mproc' for the child process.  A slot must exist. */
   do {
@@ -86,6 +92,9 @@ PUBLIC int do_fork()
   rmc = &mproc[next_child];
   /* Set up the child and its memory map; copy its 'mproc' slot from parent. */
   procs_in_use++;
+  
+  /* New process created for user, increment the nb_proc */
+  run->nb_proc++;
   *rmc = *rmp;			/* copy parent's process slot to child's */
   rmc->mp_parent = who_p;			/* record child's parent */
   if (!(rmc->mp_trace_flags & TO_TRACEFORK)) {
@@ -162,6 +171,7 @@ PUBLIC int do_srv_fork()
   	printf("PM: warning, process table is full!\n");
   	return(EAGAIN);
   }
+
 
   /* Find a slot in 'mproc' for the child process.  A slot must exist. */
   do {
@@ -702,5 +712,7 @@ register struct mproc *rmp;	/* tells which process is exiting */
   rmp->mp_child_utime = 0;
   rmp->mp_child_stime = 0;
   procs_in_use--;
+  /* Process is ended, decrement the number of process for the user */
+  un->nb_proc--;
 }
 
