@@ -94,7 +94,7 @@ PUBLIC int main()
 		continue;
 
     /* Search for user slot in ulist and set it in glo.h variable */
-    /*un = unode_get_always(mp->mp_realuid); */
+    un = unode_get_always(mp->mp_realuid); 
 
 	/* Check for system notifications first. Special cases. */
 	if (is_ipc_notify(ipc_status)) {

@@ -56,7 +56,7 @@ _PROTOTYPE( int do_reboot, (void)					);
 _PROTOTYPE( int do_procstat, (void)					);
 _PROTOTYPE( int do_sysuname, (void)					);
 _PROTOTYPE( int do_getsysinfo, (void)					);
-_PROTOTYPE( int do_getsysinfo_up, (void)					);
+_PROTOTYPE( int do_getsysinfo_up, (void)				);
 _PROTOTYPE( int do_getprocnr, (void)					);
 _PROTOTYPE( int do_getepinfo, (void)					);
 _PROTOTYPE( int do_svrctl, (void)					);
@@ -107,14 +107,14 @@ _PROTOTYPE( int pm_isokendpt, (int ep, int *proc)			);
 _PROTOTYPE( void tell_vfs, (struct mproc *rmp, message *m_ptr)		);
 
 /* getrlimit.c */
-_PROTOTYPE( int do_getrlimit, (void));
+_PROTOTYPE( int do_getrlimit, (void)                                    );
 
 /* setrlimit.c */
-_PROTOTYPE( int do_setrlimit, (void));
+_PROTOTYPE( int do_setrlimit, (void)                                    );
 
 /* ulist.c */
-_PROTOTYPE( struct unode* unode_get_always, (uid_t uid) );
-_PROTOTYPE( int ulist_init, (void) );
+_PROTOTYPE( struct unode* unode_get_always, (uid_t uid)                 );
+_PROTOTYPE( int ulist_init, (void)                                      );
 
 /* printpid.c */
-_PROTOTYPE( int do_printpid, (void));
+_PROTOTYPE( int do_printpid, (void)                                     );

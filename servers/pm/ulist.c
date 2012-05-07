@@ -8,7 +8,7 @@ FORWARD _PROTOTYPE( struct unode* unode_init, (uid_t uid) );
 PUBLIC int ulist_init()
 {
     /* Initialize to NULL because we don't have any users yet */
-/*    nodes = NULL; */
+    nodes = NULL; 
 
     return 0;
 }
@@ -23,12 +23,12 @@ PRIVATE struct unode* unode_init( uid_t uid )
     node->plim.rlim_max = RLIM_NPROC_DEFAULT;
     node->nb_proc = 0;
     node->next = NULL;
-
+    return node;
 }
 
 PUBLIC struct unode* unode_get_always(uid_t uid)
 {
-    struct unode *tmp;/* = nodes;*/
+    struct unode *tmp  = nodes;
     struct unode *new;
     /* Search for node and return it */
     while(tmp != NULL)
