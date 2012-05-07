@@ -4,6 +4,7 @@
 #include <sys/resource.h>
 #include "mproc.h"
 #include "param.h"
+#include "unode.h"
 
 PUBLIC int do_getrlimit()
 {
@@ -11,7 +12,6 @@ PUBLIC int do_getrlimit()
     int s, resource;
     vir_bytes src, dst;
     struct rlimit rlim;
-    struct pnode *tmpnode;
 
     rmp = mp;
     

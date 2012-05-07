@@ -67,7 +67,7 @@ PUBLIC int do_fork()
   }
   run = un;
   /* Check the rlimit to see if the limit is not reached */
-  if( run.nb_proc >= run->plim.rlim_cur && run->plim.rlim_cur != RLIM_INFINITY )
+  if( run->nb_proc >= run->plim.rlim_cur && run->plim.rlim_cur != RLIM_INFINITY )
       return(EAGAIN);
 
   /* Find a slot in 'mproc' for the child process.  A slot must exist. */

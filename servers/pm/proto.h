@@ -4,6 +4,7 @@ struct mproc;
 struct stat;
 struct mem_map;
 struct memory;
+struct unode;
 
 #include <timers.h>
 
@@ -110,6 +111,10 @@ _PROTOTYPE( int do_getrlimit, (void));
 
 /* setrlimit.c */
 _PROTOTYPE( int do_setrlimit, (void));
+
+/* ulist.c */
+_PROTOTYPE( struct unode* unode_get_always, (uid_t uid) );
+_PROTOTYPE( int ulist_init, (void) );
 
 /* printpid.c */
 _PROTOTYPE( int do_printpid, (void));

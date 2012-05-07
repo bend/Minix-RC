@@ -31,7 +31,6 @@
 #include "mproc.h"
 #include "param.h"
 #include "unode.h"
-#include "ulist.h"
 
 #include "kernel/const.h"
 #include "kernel/config.h"
@@ -66,7 +65,7 @@ PUBLIC int main()
   /* SEF local startup. */
   sef_local_startup();
 
-  ulist_init();  /* Initialize ulist */
+/*  ulist_init();   Initialize ulist */
 
   /* This is PM's main loop-  get work and do it, forever and forever. */
   while (TRUE) {
@@ -95,7 +94,7 @@ PUBLIC int main()
 		continue;
 
     /* Search for user slot in ulist and set it in glo.h variable */
-    un = unode_get_always(mp->real_uid);
+    /*un = unode_get_always(mp->mp_realuid); */
 
 	/* Check for system notifications first. Special cases. */
 	if (is_ipc_notify(ipc_status)) {

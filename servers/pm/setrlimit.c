@@ -4,6 +4,7 @@
 #include "pm.h"
 #include "mproc.h"
 #include "param.h"
+#include "unode.h"
 
 
 PUBLIC int do_setrlimit()

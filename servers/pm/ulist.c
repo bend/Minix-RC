@@ -1,9 +1,7 @@
 #include "unode.h"
-#include "glo.h"
+#include "pm.h"
 
-FORWARD _PROTOTYPE( int ulist_init, (void) );
-FORWARD _PROTOTYPE( struct unode* unode_init, (uid_t uid) );
-FORWARD _PROTOTYPE( struct unode* unode_get_always, (uid_t uid) );
+/*FORWARD _PROTOTYPE( struct unode* unode_init, (uid_t uid) ); */
 
 
 
@@ -15,15 +13,15 @@ PUBLIC int ulist_init()
     return 0;
 }
 
-PUBLIC struct unode* unode_init( uid_t uid )
+PRIVATE struct unode* unode_init( uid_t uid )
 {
     struct unode* node = (struct unode*) malloc(sizeof(struct unode));
-    if(unode == NO_MEM)
+    if(node == NULL)
         return NULL;
     node->uid = uid;
     node->plim.rlim_cur = RLIM_NPROC_DEFAULT;
     node->plim.rlim_max = RLIM_NPROC_DEFAULT;
-    node->nbproc = 0;
+    node->nb_proc = 0;
     node->next = NULL;
 
 }
@@ -31,6 +29,7 @@ PUBLIC struct unode* unode_init( uid_t uid )
 PUBLIC struct unode* unode_get_always(uid_t uid)
 {
     struct unode *tmp = nodes;
+    struct unode *new;
     /* Search for node and return it */
     while(tmp != NULL)
     {
@@ -42,7 +41,7 @@ PUBLIC struct unode* unode_get_always(uid_t uid)
     }
 
     /* Node does not exist, create and return it */
-    struct unode *new = unode_init(uid);
+    new  = unode_init(uid);
     /* Add the new node to the list */
     tmp->next = new;
 
