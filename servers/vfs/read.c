@@ -102,15 +102,22 @@ int rw_flag;			/* READING or WRITING */
   } else if (block_spec) {		/* Block special files. */
 	r = req_breadwrite(vp->v_bfs_e, who_e, vp->v_sdev, position,
 		m_in.nbytes, m_in.buffer, rw_flag, &res_pos, &res_cum_io);
-	if (r == OK) {
-		position = res_pos;
-		cum_io += res_cum_io;
-	}
+    if (r == OK) {
+        position = res_pos;
+        cum_io += res_cum_io;
+    }
   } else {				/* Regular files */
-	if (rw_flag == WRITING && block_spec == 0) {
-		/* Check for O_APPEND flag. */
-		if (oflags & O_APPEND) position = cvul64(vp->v_size);
-	}
+      if (rw_flag == WRITING && block_spec == 0) {
+          /* Check for O_APPEND flag. */
+          if (oflags & O_APPEND) position = cvul64(vp->v_size);
+      }
+
+      if(rw_flag == WRITING && position + m_in.nbytes > fp->fp_fsizelim.rlim_cur
+              && fp->fp_fsizelim.rlim_cur != RLIM_INFINITY) {
+          sys_kill(fp->fp_endpoint, SIGXFSZ);
+          return(EFBIG);
+      }   
+
 
 	/* Issue request */
 	r = req_readwrite(vp->v_fs_e, vp->v_inode_nr, position, rw_flag, who_e,

@@ -122,6 +122,10 @@ PUBLIC int do_dup()
   rfd = m_in.fd & ~DUP_MASK;		/* kill off dup2 bit, if on */
   if ((f = get_filp(rfd)) == NULL) return(err_code);
 
+  /* Check that process can open more files */
+  if(fp->fp_openfd >= (unsigned int)fp->fp_nofilelim.rlim_cur && fp->fp_nofilelim.rlim_cur != RLIM_INFINITY) 
+            return(EMFILE);
+
   /* Distinguish between dup and dup2. */
   if (m_in.fd == rfd) {			/* bit not on */
 	/* dup(fd) */
@@ -136,6 +140,7 @@ PUBLIC int do_dup()
 
   /* Success. Set up new file descriptors. */
   f->filp_count++;
+  f->fp_openfd++;
   fp->fp_filp[m_in.fd2] = f;
   FD_SET(m_in.fd2, &fp->fp_filp_inuse);
   return(m_in.fd2);
@@ -160,8 +165,12 @@ PUBLIC int do_fcntl()
      case F_DUPFD:
 	/* This replaces the old dup() system call. */
 	if (m_in.addr < 0 || m_in.addr >= OPEN_MAX) return(EINVAL);
+    /* Check that process can open more files */
+    if(fp->fp_openfd >= (unsigned int)fp->fp_nofilelim.rlim_cur && fp->fp_nofilelim.rlim_cur != RLIM_INFINITY) 
+            return(EMFILE);
 	if ((r = get_fd(m_in.addr, 0, &new_fd, &dummy)) != OK) return(r);
 	f->filp_count++;
+    f->fp_openfd++;
 	fp->fp_filp[new_fd] = f;
 	return(new_fd);
 

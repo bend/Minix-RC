@@ -3,6 +3,7 @@
 
 #include <sys/select.h>
 #include <minix/safecopies.h>
+#include <sys/resource.h>
 
 /* This is the per-process information.  A slot is reserved for each potential
  * process. Thus NR_PROCS must be the same as in the kernel. It is not 
@@ -19,6 +20,7 @@ EXTERN struct fproc {
   struct filp *fp_filp[OPEN_MAX];/* the file descriptor table */
 
   fd_set fp_filp_inuse;		/* which fd's are in use? */
+  unsigned int fp_openfd; /* number of open files */
   uid_t fp_realuid;		/* real user id */
   uid_t fp_effuid;		/* effective user id */
   gid_t fp_realgid;		/* real group id */
@@ -44,6 +46,8 @@ EXTERN struct fproc {
   
   fd_set fp_cloexec_set;	/* bit map for POSIX Table 6-2 FD_CLOEXEC */
   endpoint_t fp_endpoint;	/* kernel endpoint number of this process */
+  struct rlimit fp_fsizelim;    /* max file size */
+  struct rlimit fp_nofilelim;   /* max number of open files */
 } fproc[NR_PROCS];
 
 /* fp_flags */

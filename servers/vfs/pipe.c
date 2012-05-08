@@ -53,6 +53,11 @@ PUBLIC int do_pipe()
 
   /* Acquire two file descriptors. */
   rfp = fp;
+
+  /* Check if process can open 2 more files */
+  if(rfp->fp_openfd + 1  >= (unsigned int)rfp->fp_nofilelim.rlim_cur && rfp->fp_nofilelim.rlim_cur != RLIM_INFINITY) 
+      return(EMFILE);
+
   if ((r = get_fd(0, R_BIT, &fil_des[0], &fil_ptr0)) != OK) return(r);
   rfp->fp_filp[fil_des[0]] = fil_ptr0;
   FD_SET(fil_des[0], &rfp->fp_filp_inuse);
@@ -80,6 +85,9 @@ PUBLIC int do_pipe()
 	fil_ptr1->filp_count = 0;
 	return(r);
   }
+
+  /* 2 new files openned */
+  rfp->fp_openfd+=2;
 
   /* Fill in vnode */
   vp->v_fs_e = res.fs_e;

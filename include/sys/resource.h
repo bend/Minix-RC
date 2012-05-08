@@ -27,6 +27,8 @@ typedef unsigned long rlim_t;
  */
 #define RLIM_NICE_DEFAULT 20
 #define RLIM_NPROC_DEFAULT  CHILD_MAX
+#define RLIM_FSIZE_DEFAULT RLIM_INFINITY
+#define RLIM_NOFILE_DEFAULT OPEN_MAX
 
 struct rlimit
 {

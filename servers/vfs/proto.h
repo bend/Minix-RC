@@ -294,3 +294,9 @@ _PROTOTYPE( void select_timeout_check, (timer_t *)			);
 _PROTOTYPE( void init_select, (void)					);
 _PROTOTYPE( void select_unsuspend_by_endpt, (endpoint_t proc)		);
 _PROTOTYPE( int select_notified, (int major, int minor, int ops)	);
+
+/* getrlimit.c */
+_PROTOTYPE( int do_getrlimit, (void)                                    );
+
+/* setrlimit.c */
+_PROTOTYPE( int do_setrlimit, (void)                                    );

@@ -86,6 +86,10 @@ PRIVATE int common_open(register int oflags, mode_t omode)
   struct vmnt *vmp;
   struct dmap *dp;
 
+  /* Is the limit of opened files reached? */
+  if(fp->fp_openfd >= (unsigned int) fp->fp_nofilelim.rlim_cur && fp->fp_nofilelim.rlim_cur != RLIM_INFINITY) 
+      return(EMFILE);
+
   /* Remap the bottom two bits of oflags. */
   bits = (mode_t) mode_map[oflags & O_ACCMODE];
   if (!bits) return(EINVAL);
@@ -229,7 +233,8 @@ PRIVATE int common_open(register int oflags, mode_t omode)
 	fil_ptr->filp_vno = NULL;
 	return(r);
   }
-  
+
+  fp->fp_openfd++;
   return(m_in.fd);
 }
 
@@ -577,6 +582,8 @@ int fd_nr;
   if ( (rfilp = get_filp2(rfp, fd_nr)) == NULL) return(err_code);
   vp = rfilp->filp_vno;
   close_filp(rfilp);
+  /* One file is closed */
+  rfp->fp_openfd--;
 
   FD_CLR(fd_nr, &rfp->fp_cloexec_set);
   rfp->fp_filp[fd_nr] = NULL;
