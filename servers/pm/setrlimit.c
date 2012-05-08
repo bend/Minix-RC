@@ -4,17 +4,19 @@
 #include "pm.h"
 #include "mproc.h"
 #include "param.h"
+#include "unode.h"
 
 
 PUBLIC int do_setrlimit()
 {
     register struct mproc *rmp;
+    register struct unode *run;
     int s, resource;
     vir_bytes src, dst;
     struct rlimit rlim;
     printf("setrlimit syscall\n");
 
-    rmp = mp; 
+    rmp = mp;
     resource = m_in.rlimit_resource;
 
     /* Copy rlim structure to PM */
@@ -72,10 +74,10 @@ PUBLIC int do_setrlimit()
             break;
 
         case RLIMIT_NPROC:
+            run = unode_get_always(rmp->mp_realuid);
+            run->plim = rlim;
             break;
     }
-
-    printf("setrlimit sys call 2");
 
     return(OK);
 }

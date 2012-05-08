@@ -4,10 +4,12 @@
 #include <sys/resource.h>
 #include "mproc.h"
 #include "param.h"
+#include "unode.h"
 
 PUBLIC int do_getrlimit()
 {
     register struct mproc *rmp;
+    register struct unode *run;
     int s, resource;
     vir_bytes src, dst;
     struct rlimit rlim;
@@ -41,6 +43,8 @@ PUBLIC int do_getrlimit()
             printf("%d\n", rlim.rlim_max);
             break;
         case RLIMIT_NPROC:
+            run = unode_get_always(rmp->mp_realuid);
+            rlim = run->plim;
             break;
     }
 
