@@ -16,6 +16,7 @@ PUBLIC int do_getrlimit()
     struct pnode *tmpnode;
 
     rmp = mp;
+    run = un;
     
     resource = m_in.rlimit_resource; 
         
@@ -43,7 +44,6 @@ PUBLIC int do_getrlimit()
             printf("%d\n", rlim.rlim_max);
             break;
         case RLIMIT_NPROC:
-            run = unode_get_always(rmp->mp_realuid);
             rlim = run->plim;
             break;
     }

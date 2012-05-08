@@ -17,6 +17,7 @@ PUBLIC int do_setrlimit()
     printf("setrlimit syscall\n");
 
     rmp = mp;
+    run = un;
     resource = m_in.rlimit_resource;
 
     /* Copy rlim structure to PM */
@@ -74,7 +75,6 @@ PUBLIC int do_setrlimit()
             break;
 
         case RLIMIT_NPROC:
-            run = unode_get_always(rmp->mp_realuid);
             run->plim = rlim;
             break;
     }

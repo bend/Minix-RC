@@ -48,7 +48,6 @@ PUBLIC int do_fork()
 /* The process pointed to by 'mp' has forked.  Create a child process. */
   register struct mproc *rmp;	/* pointer to parent */
   register struct mproc *rmc;	/* pointer to child */
-  register struct unode *un;
   pid_t new_pid;
   static int next_child;
   int i, n = 0, s;
@@ -59,7 +58,6 @@ PUBLIC int do_fork()
   * way through is such a nuisance.
   */
   rmp = mp;
-  un = unode_get_always(rmp->mp_realuid);
   if ((procs_in_use == NR_PROCS) || 
   		(procs_in_use >= NR_PROCS-LAST_FEW && rmp->mp_effuid != 0))
   {
@@ -67,11 +65,9 @@ PUBLIC int do_fork()
   	return(EAGAIN);
   }
 
-  printf("nbproc = %d lim_cur = %d\n", un->nb_proc, un->plim.rlim_cur);
   /* Check the rlimit to see if the limit is not reached */
   if( un != NULL && un->nb_proc >= un->plim.rlim_cur && un->plim.rlim_cur != RLIM_INFINITY )
   {
-      printf("cannot fork max process reached nbproc = %d lim_cur = %d\n", un->nb_proc, un->plim.rlim_cur);
       return(EAGAIN);
   }
 
@@ -99,13 +95,11 @@ PUBLIC int do_fork()
   procs_in_use++;
   
   /* New process created for user, increment the nb_proc */
-  printf("user id %d\n",rmp->mp_realuid);
   if(un != NULL)
   {
-      printf("increment un to %d\n", un->nb_proc);
       un->nb_proc++;
-  }else
-      printf("un is null\n");
+  }
+
   *rmc = *rmp;			/* copy parent's process slot to child's */
   rmc->mp_parent = who_p;			/* record child's parent */
   if (!(rmc->mp_trace_flags & TO_TRACEFORK)) {
@@ -717,7 +711,6 @@ struct mproc *child;			/* process being traced */
 PRIVATE void cleanup(rmp)
 register struct mproc *rmp;	/* tells which process is exiting */
 {
-  register struct unode* un;
   /* Release the process table entry and reinitialize some field. */
   rmp->mp_pid = 0;
   rmp->mp_flags = 0;
@@ -725,11 +718,8 @@ register struct mproc *rmp;	/* tells which process is exiting */
   rmp->mp_child_stime = 0;
   procs_in_use--;
   /* Process is ended, decrement the number of process for the user */
-  un = unode_get_always(rmp->mp_realuid);
   if(un != NULL)
   {
-      printf("Cleaning up bcz not null %d\n", un->nb_proc);
       un->nb_proc--;
-  }else
-      printf("cannot clean\n");
+  }
 }
