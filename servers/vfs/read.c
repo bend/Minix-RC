@@ -113,11 +113,13 @@ int rw_flag;			/* READING or WRITING */
           if (oflags & O_APPEND) position = cvul64(vp->v_size);
       }
 
+      
       if(rw_flag == WRITING && cv64ul(position) + m_in.nbytes > fp->fp_fsizelim.rlim_cur
               && fp->fp_fsizelim.rlim_cur != RLIM_INFINITY) {
-        /*  sys_kill(fp->fp_endpoint, SIGXFSZ); */
+          sys_kill(fp->fp_endpoint, SIGXFSZ); 
+          printf("file too big error\n");
           return(EFBIG);
-      }   
+      }
 
 
 	/* Issue request */
