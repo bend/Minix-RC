@@ -85,9 +85,9 @@ PRIVATE int common_open(register int oflags, mode_t omode)
   struct vnode *vp;
   struct vmnt *vmp;
   struct dmap *dp;
-
+  
   /* Is the limit of opened files reached? */
-  if(fp->fp_openfd >= (unsigned int) fp->fp_nofilelim.rlim_cur && fp->fp_nofilelim.rlim_cur != RLIM_INFINITY) 
+  if(fp->fp_openfd >= fp->fp_nofilelim.rlim_cur && fp->fp_nofilelim.rlim_cur != RLIM_INFINITY) 
       return(EMFILE);
 
   /* Remap the bottom two bits of oflags. */

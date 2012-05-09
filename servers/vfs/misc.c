@@ -140,7 +140,7 @@ PUBLIC int do_dup()
 
   /* Success. Set up new file descriptors. */
   f->filp_count++;
-  f->fp_openfd++;
+  fp->fp_openfd++;
   fp->fp_filp[m_in.fd2] = f;
   FD_SET(m_in.fd2, &fp->fp_filp_inuse);
   return(m_in.fd2);
@@ -170,7 +170,7 @@ PUBLIC int do_fcntl()
             return(EMFILE);
 	if ((r = get_fd(m_in.addr, 0, &new_fd, &dummy)) != OK) return(r);
 	f->filp_count++;
-    f->fp_openfd++;
+    fp->fp_openfd++;
 	fp->fp_filp[new_fd] = f;
 	return(new_fd);
 

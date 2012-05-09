@@ -23,6 +23,7 @@
 #include <minix/vfsif.h>
 #include "vnode.h"
 #include "vmnt.h"
+#include <signal.h>
 
 
 /*===========================================================================*
@@ -112,9 +113,9 @@ int rw_flag;			/* READING or WRITING */
           if (oflags & O_APPEND) position = cvul64(vp->v_size);
       }
 
-      if(rw_flag == WRITING && position + m_in.nbytes > fp->fp_fsizelim.rlim_cur
+      if(rw_flag == WRITING && cv64ul(position) + m_in.nbytes > fp->fp_fsizelim.rlim_cur
               && fp->fp_fsizelim.rlim_cur != RLIM_INFINITY) {
-          sys_kill(fp->fp_endpoint, SIGXFSZ);
+        /*  sys_kill(fp->fp_endpoint, SIGXFSZ); */
           return(EFBIG);
       }   
 

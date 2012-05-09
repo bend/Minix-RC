@@ -131,7 +131,7 @@ PUBLIC _PROTOTYPE (int (*call_vec[]), (void) ) = {
 	do_gcov_flush,	/* 112 = gcov_flush */
     do_getrlimit, /* 113 getrlimit sys call */
     do_setrlimit, /* 114 setrlimit sys call */
-    do_printpid, /* 115*/
+    no_sys, /* 115*/
 };
 /* This should not fail with "array size is negative": */
 extern int dummy[sizeof(call_vec) == NCALLS * sizeof(call_vec[0]) ? 1 : -1];

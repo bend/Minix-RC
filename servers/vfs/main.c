@@ -241,6 +241,7 @@ PRIVATE int sef_cb_init_fresh(int type, sef_init_info_t *info)
 	rfp = &fproc[mess.PM_SLOT];
 	rfp->fp_pid = mess.PM_PID;
 	rfp->fp_endpoint = mess.PM_PROC;
+    rfp->fp_openfd = 0;
 	rfp->fp_realuid = (uid_t) SYS_UID;
 	rfp->fp_effuid = (uid_t) SYS_UID;
 	rfp->fp_realgid = (gid_t) SYS_GID;
@@ -249,8 +250,10 @@ PRIVATE int sef_cb_init_fresh(int type, sef_init_info_t *info)
 	rfp->fp_grant = GRANT_INVALID;
 	rfp->fp_blocked_on = FP_BLOCKED_ON_NONE;
 	rfp->fp_revived = NOT_REVIVING;
-    rfp->fp_fsizelim = RLIM_FSIZE_DEFAULT;
-    rfp->fp_nofilelim = RLIM_NOFILE_DEFAULT;
+    rfp->fp_fsizelim.rlim_cur = RLIM_FSIZE_DEFAULT;
+    rfp->fp_fsizelim.rlim_max = RLIM_FSIZE_DEFAULT;
+    rfp->fp_nofilelim.rlim_cur = RLIM_NOFILE_DEFAULT;
+    rfp->fp_nofilelim.rlim_max = RLIM_NOFILE_DEFAULT;
    
   } while (TRUE);			/* continue until process NONE */
   mess.m_type = OK;			/* tell PM that we succeeded */

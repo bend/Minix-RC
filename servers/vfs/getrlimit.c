@@ -1,8 +1,8 @@
-#include "pm.h"
+#include "fs.h"
 #include <minix/callnr.h>
 #include <minix/com.h>
 #include <sys/resource.h>
-#include "mproc.h"
+#include "fproc.h"
 #include "param.h"
 
 PUBLIC int do_getrlimit()

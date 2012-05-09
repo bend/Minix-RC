@@ -1,8 +1,8 @@
+#include "fs.h"
 #include <minix/com.h>
 #include <minix/callnr.h>
 #include <sys/resource.h>
-#include "pm.h"
-#include "mproc.h"
+#include "fproc.h"
 #include "param.h"
 
 
