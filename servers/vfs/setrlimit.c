@@ -28,7 +28,6 @@ PUBLIC int do_setrlimit()
         if((s=sys_datacopy(who_e, src, SELF, dst,
                         (phys_bytes) sizeof(struct rlimit))) != OK) 
         {
-            printf("sys copy failedi\n");
             return(s);
         }
     }   
@@ -36,11 +35,9 @@ PUBLIC int do_setrlimit()
     /* Check if the specified limit is valid  */
     if(rlim.rlim_cur != RLIM_INFINITY && rlim.rlim_cur < 0) 
     {
-        printf("limit not valid\n");
         return(EINVAL);
     }
     else if(rlim.rlim_max != RLIM_INFINITY) {
-        printf("!= rlimit_inf\n");
         /* rlim.rlim_cur must be different of 
            RLIM_INFINITY because the hard limit is smaller than RLIM_INFINITY 
         */

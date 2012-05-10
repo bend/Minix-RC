@@ -9,7 +9,7 @@ struct stat *buffer;
 {
   message m;
 
-  m.m2_i1 = strlen(name) + 1;
+  m.m1_i1 = strlen(name) + 1;
   m.m1_p1 = (char *) name;
   m.m1_p2 = (char *) buffer;
   return(_syscall(VFS_PROC_NR, STAT, &m));

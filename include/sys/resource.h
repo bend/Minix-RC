@@ -16,6 +16,7 @@ int getpriority(int, int);
 int setpriority(int, int, int);
 
 #include <sys/time.h>
+#include <limits.h>
 
 typedef unsigned long rlim_t;
 

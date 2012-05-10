@@ -44,7 +44,7 @@ typedef unsigned long sigset_t;
 #define SIGEMT		  16	/* EMT instruction */
 #define SIGCHLD           17	/* child process terminated or stopped */
 #define SIGWINCH    	  21	/* window size has changed */
-#define SIGXFSZ           22 
+#define SIGXFSZ           22    /* file size exceeded */
 #define SIGVTALRM         24	/* virtual alarm */
 #define SIGPROF           25	/* profiler alarm */
 
