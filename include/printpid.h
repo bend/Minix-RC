@@ -3,6 +3,6 @@
 
 #include <stdlib.h>
 
-_PROTOTYPE( void printpid, (void));
+_PROTOTYPE( void printpid, (void)   );
 
 #endif
