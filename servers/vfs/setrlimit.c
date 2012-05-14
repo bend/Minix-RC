@@ -14,6 +14,8 @@ PUBLIC int do_setrlimit()
     struct rlimit rlim;
     
     rfp = fp;
+    
+    /* Get resource type from message */
     resource = m_in.rlimit_resource;
 
     /* Copy rlim structure to PM */
@@ -26,10 +28,7 @@ PUBLIC int do_setrlimit()
         src = (vir_bytes) m_in.rlimit_struct;
         dst = (vir_bytes) &rlim;
         if((s=sys_datacopy(who_e, src, SELF, dst,
-                        (phys_bytes) sizeof(struct rlimit))) != OK) 
-        {
-            return(s);
-        }
+                        (phys_bytes) sizeof(struct rlimit))) != OK) return(s);
     }   
 
     /* Check if the specified limit is valid  */
@@ -50,6 +49,7 @@ PUBLIC int do_setrlimit()
     switch(resource)
     {
         case RLIMIT_FSIZE:
+            /* Check that values are correct (max >= cur) and that only root can set a higher limit */
             if(rfp->fp_effuid != SUPER_USER && rfp->fp_fsizelim.rlim_max != RLIM_INFINITY) {
                 if(rlim.rlim_max > rfp->fp_fsizelim.rlim_max || rlim.rlim_max == RLIM_INFINITY)
                     return(EPERM);
@@ -58,6 +58,7 @@ PUBLIC int do_setrlimit()
             rfp->fp_fsizelim = rlim;
             break;
         case RLIMIT_NOFILE:
+            /* Check that values are correct (max >= cur) and that only root can set a higher limit */
             if(rfp->fp_effuid != SUPER_USER && rfp->fp_nofilelim.rlim_max != RLIM_INFINITY) {
                 if(rlim.rlim_max > rfp->fp_nofilelim.rlim_max || rlim.rlim_max == RLIM_INFINITY) 
                     return(EPERM);

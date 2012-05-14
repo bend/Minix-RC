@@ -17,6 +17,7 @@ PUBLIC int do_getrlimit()
     rmp = mp;
     run = un;
     
+    /* Get the resource type from the message */
     resource = m_in.rlimit_resource; 
         
     /* Copy rlim structure to PM */
@@ -46,7 +47,7 @@ PUBLIC int do_getrlimit()
     }
 
 
-
+    /* Copy filled structure to user space */
     src = (vir_bytes) &rlim;
     dst = (vir_bytes) m_in.rlimit_struct;
     if((s=sys_datacopy(SELF, src, who_e, dst,

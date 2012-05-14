@@ -13,6 +13,8 @@ PUBLIC int do_getrlimit()
     struct rlimit rlim;
     
     rfp = fp;
+    
+    /* get resource type from message */
     resource = m_in.rlimit_resource; 
 
     /* Copy rlim structure to VFS */
@@ -38,9 +40,8 @@ PUBLIC int do_getrlimit()
             rlim = rfp->fp_nofilelim;
             break;
     }
-
-
-
+    
+    /* Copy filled struc to user space */
     src = (vir_bytes) &rlim;
     dst = (vir_bytes) m_in.rlimit_struct;
     if((s=sys_datacopy(SELF, src, who_e, dst,
